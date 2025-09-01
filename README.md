@@ -60,8 +60,6 @@ complete-setup.bat
 ### **Alternative Quick Scripts**
 ```cmd
 basic-setup.bat     # Simplified version
-simple-setup.bat    # Minimal setup
-run-no-hang.bat     # Development only (fastest)
 stop-servers.bat    # Stop all services
 ```
 
