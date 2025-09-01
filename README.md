@@ -364,7 +364,7 @@ npm run test:e2e          # End-to-end testing
 **Setup Script Hangs at Build:**
 ```cmd
 # Use development mode instead
-run-no-hang.bat
+basic-setup.bat
 ```
 
 **Port Already in Use:**
@@ -456,14 +456,14 @@ secure-email-platform/
 - **Email**: admin@localhost
 - **Password**: admin123
 
-### **API Documentation**
+<!--### **API Documentation**
 - **Base URL**: http://localhost:3000/api
 - **Health Check**: http://localhost:3000/health
 
 ## 📜 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
-
+-->
 ## 🆘 Support & Contact
 
 **For Issues:**
