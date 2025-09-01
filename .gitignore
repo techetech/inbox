@@ -1,0 +1,124 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+frontend/dist/
+frontend/build/
+out/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.production
+.env.staging
+
+# Testing
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+test-output/
+*.lcov
+
+# TypeScript
+*.tsbuildinfo
+*.d.ts.map
+*.js.map
+
+# Cache directories
+.npm
+.eslintcache
+.stylelintcache
+.parcel-cache
+.cache/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+.node_repl_history
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*~
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary folders
+temp/
+tmp/
+uploads/
+attachments/
+storage/
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.sql.backup
+*.dump
+dump.rdb
+
+# Security files
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Email files
+*.eml
+*.msg
+
+# ClamAV database files
+*.cvd
+*.cld
+
+# Local development
+data/
+cache/
+config.local.json
+settings.local.json
+
+# PM2 and process management
+ecosystem.config.js

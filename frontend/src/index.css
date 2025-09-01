@@ -1,0 +1,125 @@
+/* Custom Cyber Theme Styles */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border;
+  }
+  
+  body {
+    @apply bg-dark-bg text-dark-text font-mono;
+    background-image: 
+      radial-gradient(circle at 25% 25%, #00ff4120 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, #00ffff20 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-surface;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyber-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cyber-500;
+  }
+}
+
+@layer components {
+  .cyber-button {
+    @apply px-4 py-2 bg-dark-surface border border-cyber-500 text-cyber-400 
+           hover:bg-cyber-500 hover:text-dark-bg transition-all duration-300
+           font-medium relative overflow-hidden;
+  }
+  
+  .cyber-button:before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-cyber-400 to-transparent
+           transform -translate-x-full transition-transform duration-500 opacity-0;
+  }
+  
+  .cyber-button:hover:before {
+    @apply translate-x-full opacity-20;
+  }
+
+  .cyber-input {
+    @apply bg-dark-surface border border-dark-border text-dark-text 
+           focus:border-cyber-500 focus:ring-1 focus:ring-cyber-500 
+           transition-colors duration-300 font-mono;
+  }
+
+  .cyber-card {
+    @apply bg-dark-surface border border-dark-border backdrop-blur-sm
+           hover:border-cyber-500 transition-colors duration-300;
+  }
+
+  .neon-text {
+    @apply text-neon-green;
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+
+  .threat-high {
+    @apply text-neon-pink border-neon-pink;
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  .threat-medium {
+    @apply text-neon-orange border-neon-orange;
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  .threat-low {
+    @apply text-neon-green border-neon-green;
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  .matrix-bg {
+    background-image: 
+      linear-gradient(90deg, transparent 50%, rgba(0, 255, 65, 0.03) 50%),
+      linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+    background-size: 20px 20px;
+  }
+
+  .glass-effect {
+    @apply bg-dark-surface/60 backdrop-blur-md border border-dark-border/50;
+  }
+
+  .email-item {
+    @apply transition-all duration-200 hover:bg-dark-bg/50 border-l-4 border-transparent
+           hover:border-cyber-500;
+  }
+
+  .email-item.unread {
+    @apply bg-dark-surface/30 border-l-cyber-400;
+  }
+
+  .security-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium;
+  }
+}
+
+@layer utilities {
+  .animate-matrix {
+    animation: matrix 20s linear infinite;
+  }
+
+  @keyframes matrix {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 20px; }
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+}

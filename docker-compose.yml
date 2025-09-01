@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # Main application
+  app:
+    build: .
+    container_name: secure-email-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://email_user:email_pass@postgres:5432/secure_email_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key}
+    depends_on:
+      - postgres
+      - redis
+      - clamav
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - email-network
+
+  # PostgreSQL database
+  postgres:
+    image: postgres:15-alpine
+    container_name: secure-email-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=secure_email_db
+      - POSTGRES_USER=email_user
+      - POSTGRES_PASSWORD=email_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - email-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U email_user -d secure_email_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for caching and queues
+  redis:
+    image: redis:7-alpine
+    container_name: secure-email-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - email-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ClamAV antivirus scanner
+  clamav:
+    image: clamav/clamav:stable
+    container_name: secure-email-clamav
+    restart: unless-stopped
+    volumes:
+      - clamav_data:/var/lib/clamav
+    networks:
+      - email-network
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/clamdcheck.sh"]
+      interval: 60s
+      timeout: 120s
+      retries: 3
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: secure-email-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/ssl/certs:ro
+    depends_on:
+      - app
+    networks:
+      - email-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  clamav_data:
+
+networks:
+  email-network:
+    driver: bridge
